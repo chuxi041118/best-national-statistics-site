@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="数观中国 — 中国国家统计站：总览、经济、人口、民生、环境五大专题，2015–2024 年真实数据，图表、对比与排序全部可用。">
+<title>数观中国 · 中国国家统计站</title>
+<link rel="stylesheet" href="style.css">
+<script type="module" src="main.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#/"><span class="brand-mark">数</span><span class="brand-name">数观中国</span><span class="brand-sub">中国国家统计站</span></a>
+    <nav class="nav" aria-label="专题导航">
+      <a href="#/" data-page="home">总览</a>
+      <a href="#/economy" data-page="economy">经济</a>
+      <a href="#/population" data-page="population">人口</a>
+      <a href="#/livelihood" data-page="livelihood">民生</a>
+      <a href="#/environment" data-page="environment">环境</a>
+    </nav>
+    <div class="top-tools">
+      <div class="search-wrap">
+        <input class="search-box" id="search" type="search" placeholder="搜指标 / 省份 / 城市…" aria-label="搜索指标、省份或城市" autocomplete="off">
+        <div class="search-results" id="search-results" hidden></div>
+      </div>
+      <select class="year-picker" id="year" aria-label="选择年份"></select>
+    </div>
+  </div>
+</header>
+<main id="app" class="wrap"></main>
+<footer class="site">
+  <p>数观中国 · 中国国家统计站 — 原创整理的可视化站点，与任何官方机构无关。</p>
+  <p>数据来源：国家统计局公开数据整理；带“约”的数值为四舍五入约数。2015–2024 年。</p>
+</footer>
+</body>
+</html>
