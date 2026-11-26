@@ -344,6 +344,7 @@ function viewEnvironment() {
 
 // ---------- 渲染与事件 ----------
 function render() {
+  document.title = `数观中国 · ${year} 年`;
   const hash = location.hash || '#/';
   const route = hash.replace(/^#\/?/, '').split('/')[0] || '';
   document.querySelectorAll('.nav a').forEach((a) => {
@@ -412,6 +413,14 @@ searchInput.addEventListener('input', () => doSearch(searchInput.value));
 searchInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') doSearch(searchInput.value); });
 document.addEventListener('click', (e) => {
   if (!e.target.closest('.search-wrap')) { searchBox.hidden = true; }
+});
+// 按 "/" 快速聚焦搜索框（输入框/文本域/下拉框内按下时不拦截，让用户正常输入）
+document.addEventListener('keydown', (e) => {
+  if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return;
+  const tag = (e.target.tagName || '').toLowerCase();
+  if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) return;
+  e.preventDefault();
+  searchInput.focus();
 });
 
 window.addEventListener('hashchange', render);

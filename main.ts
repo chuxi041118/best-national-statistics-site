@@ -46,3 +46,23 @@ const dossier = buildDossier(outputDir, {
 });
 writeFileSync(join(outputDir, 'dossier.json'), dossier);
 console.log('wrote dossier.json');
+
+// 构建后校验：输出目录里必须有 app/index.html、至少一张截图与 dossier.json。
+function listFiles(dir, base = dir) {
+  const out = [];
+  for (const name of readdirSync(dir)) {
+    const full = join(dir, name);
+    if (statSync(full).isDirectory()) out.push(...listFiles(full, base));
+    else out.push({ rel: full.slice(base.length + 1), bytes: statSync(full).size });
+  }
+  return out;
+}
+const builtFiles = listFiles(outputDir);
+const totalBytes = builtFiles.reduce((n, f) => n + f.bytes, 0);
+const missing = ['app/index.html', 'dossier.json'].filter((rel) => !builtFiles.some((f) => f.rel === rel));
+if (!builtFiles.some((f) => f.rel.startsWith('screenshots/'))) missing.push('screenshots/（至少一张截图）');
+if (missing.length) {
+  console.error(`build check failed: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+console.log(`build check ok: ${builtFiles.length} files, ${totalBytes} bytes in ${outputDir}`);
